@@ -1,0 +1,18 @@
+.App {
+  padding: 0 20px;
+}
+
+.progress-spinner {
+  // override the default size
+  // width: 60px;
+}
+
+.spinner-progress {
+  text-align: center;
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%) translateY(-50%);
+}

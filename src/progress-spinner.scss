@@ -1,0 +1,29 @@
+.progress-spinner {
+  display: inline-block;
+  position: relative;
+  overflow: visible;
+  // width: 1em;
+
+  circle {
+    transition: 0.3s stroke-dashoffset;
+    transform-origin: center center;
+    transform: rotate(-90deg);
+
+    &.spin {
+      @keyframes spin {
+        0% { transform: rotate(-90deg); }
+        100% { transform: rotate(270deg); }
+      }
+
+      animation: spin 2s linear infinite normal forwards;
+    }
+
+    &:not(.spin) {
+      transform: rotate(-90deg);
+    }
+
+    &.paused {
+      animation-play-state: paused;
+    }
+  }
+}
