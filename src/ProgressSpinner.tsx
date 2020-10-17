@@ -5,13 +5,13 @@ import "./progress-spinner.scss";
 
 interface Props {
   progress: number;
-  minProgress?: number;
-  maxProgress?: number;
-  size?: "sm" | "md" | "lg" | "xl" | string;
-  strokeWidth?: number;
-  variant?: string;
-  className?: string;
-  spin?: boolean;
+  minProgress: number;
+  maxProgress: number;
+  size: "sm" | "md" | "lg" | "xl" | string;
+  strokeWidth: number;
+  variant: string;
+  className: string;
+  spin: boolean;
   children?: any;
 }
 
@@ -32,32 +32,37 @@ export default class ProgressSpinner extends React.Component<Props, State> {
     spin: false
   };
 
-  private ref: any;
+  private ref: React.RefObject<HTMLDivElement>;
   private radius: number;
   private circumference: number;
-  private observer: MutationObserver;
+  private observer?: MutationObserver;
 
   state: State = {
     size: 0,
     strokeWidth: 0
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.ref = React.createRef();
+    this.radius = 0;
+    this.circumference = 0;
   }
 
   componentDidMount() {
-    const { width } = this.ref.current.getBoundingClientRect();
+    const el = this.ref.current as HTMLDivElement;
+
+    const { width } = el.getBoundingClientRect();
     this.setSize(width);
 
     this.observer = new MutationObserver(this.observerCallback);
-    this.observer.observe(this.ref.current, { attributes: true });
+    this.observer.observe(el, { attributes: true });
   }
 
   observerCallback = () => {
     this.setState((state) => {
-      const { width: newSize } = this.ref.current.getBoundingClientRect();
+      const el = this.ref.current as HTMLDivElement;
+      const { width: newSize } = el.getBoundingClientRect();
       if (newSize !== state.size) {
         const {
           strokeWidth,
@@ -68,7 +73,7 @@ export default class ProgressSpinner extends React.Component<Props, State> {
         this.circumference = circumference;
         return { size: newSize, strokeWidth };
       }
-      return {};
+      return null;
     });
   };
 
@@ -119,12 +124,7 @@ export default class ProgressSpinner extends React.Component<Props, State> {
     const { className, size, children } = this.props;
 
     return (
-      <div
-        className={classNames(
-          className,
-          "progress-spinner",
-          `progress-spinner-${size}`
-        )}
+      <div className={classNames(className, "progress-spinner", `progress-spinner-${size}`)}
         ref={this.ref}
       >
         {this.renderSpinner()}

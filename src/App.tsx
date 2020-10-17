@@ -74,11 +74,12 @@ export default function App() {
               min={1}
               max={
                 // assumes 1rem === 16px
-                size === "sm" ? 8 : size === "md" ? 16 : size === "lg" ? 24 : 32 // assume 'xl'
+                size === "sm" ? 8
+                : size === "md" ? 16
+                : size === "lg" ? 24
+                : 32 // assume 'xl'
               }
-              onChange={({ target: { value } }) =>
-                setStrokeWidth(Number(value))
-              }
+              onChange={({ target: { value } }) => setStrokeWidth(Number(value))}
             />
           </Form.Group>
           <Form.Group as={Col} sm="3" controlId="size">
@@ -103,7 +104,7 @@ export default function App() {
               label="Spin"
               type="checkbox"
               defaultChecked={spin}
-              onChange={({ target: { checked } }) => setSpin(checked)}
+              onChange={({target: {checked}}: React.ChangeEvent<HTMLInputElement>) => setSpin(checked)}
             />
           </Col>
         </Form.Row>
