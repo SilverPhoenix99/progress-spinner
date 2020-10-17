@@ -1,10 +1,13 @@
+@import "./progress-spinner.scss";
+
 .App {
   padding: 0 20px;
 }
 
-.progress-spinner {
+.progress-spinner-override {
   // override the default size
-  // width: 60px;
+  border: 1px solid red;
+  width: 4.1rem;
 }
 
 .spinner-progress {

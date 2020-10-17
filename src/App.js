@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Col, Form } from "react-bootstrap";
-import "./styles.scss";
 import ProgressSpinner from "./ProgressSpinner";
+import "./styles.scss";
 
 export default function App() {
   const [progress, setProgress] = useState(70);
   const [strokeWidth, setStrokeWidth] = useState(6);
-  const [spin, setSpin] = useState(false);
+  const [spin, setSpin] = useState(true);
   const [variant, setVariant] = useState("primary");
+  const [size, setSize] = useState("lg");
 
   const max = 100;
 
@@ -17,14 +18,17 @@ export default function App() {
       <p />
 
       <ProgressSpinner
-        size={60}
+        size={size}
         strokeWidth={strokeWidth}
-        max={max}
+        maxProgress={max}
         progress={progress}
         spin={spin}
         variant={variant}
       >
-        <div className="spinner-progress">{progress}%</div>
+        <div className="spinner-progress">
+          {Math.floor(progress)}
+          <span style={{ fontSize: "0.7rem" }}> %</span>
+        </div>
       </ProgressSpinner>
       <p />
 
@@ -36,7 +40,7 @@ export default function App() {
               size="sm"
               type="number"
               defaultValue={progress}
-              step={1}
+              step={0.25}
               min={0}
               max={max}
               onChange={({ target: { value } }) => setProgress(Number(value))}
@@ -68,11 +72,28 @@ export default function App() {
               defaultValue={strokeWidth}
               step={1}
               min={1}
-              max={30}
+              max={
+                // assumes 1rem === 16px
+                size === "sm" ? 8 : size === "md" ? 16 : size === "lg" ? 24 : 32 // assume 'xl'
+              }
               onChange={({ target: { value } }) =>
                 setStrokeWidth(Number(value))
               }
             />
+          </Form.Group>
+          <Form.Group as={Col} sm="3" controlId="size">
+            <Form.Label>Size</Form.Label>
+            <Form.Control
+              size="sm"
+              as="select"
+              defaultValue={size}
+              onChange={({ target: { value } }) => setSize(value)}
+            >
+              <option value="sm">Small</option>
+              <option value="md">Medium</option>
+              <option value="lg">Large</option>
+              <option value="xl">Extra Large</option>
+            </Form.Control>
           </Form.Group>
         </Form.Row>
         <Form.Row>

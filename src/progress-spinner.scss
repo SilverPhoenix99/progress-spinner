@@ -1,13 +1,18 @@
 .progress-spinner {
   display: inline-block;
   position: relative;
-  overflow: visible;
-  // width: 1em;
+  height: auto;
+
+  svg {
+    overflow: visible;
+  }
 
   circle {
     transition: 0.3s stroke-dashoffset;
     transform-origin: center center;
     transform: rotate(-90deg);
+    stroke: currentColor;
+    fill: none;
 
     &.spin {
       @keyframes spin {
@@ -26,4 +31,20 @@
       animation-play-state: paused;
     }
   }
+}
+
+.progress-spinner-sm {
+  width: 1rem;
+}
+
+.progress-spinner-md {
+  width: 2rem;
+}
+
+.progress-spinner-lg {
+  width: 3rem;
+}
+
+.progress-spinner-xl {
+  width: 4rem;
 }
