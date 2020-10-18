@@ -5,7 +5,6 @@ import "./styles.scss";
 
 export default function App() {
   const [progress, setProgress] = useState(70);
-  const [strokeWidth, setStrokeWidth] = useState(6);
   const [spin, setSpin] = useState(true);
   const [variant, setVariant] = useState("primary");
   const [size, setSize] = useState("lg");
@@ -17,24 +16,24 @@ export default function App() {
       <h1>Progress Spinner demo</h1>
       <p />
 
-      <ProgressSpinner
-        size={size}
-        strokeWidth={strokeWidth}
-        maxProgress={max}
-        progress={progress}
-        spin={spin}
-        variant={variant}
-      >
-        <div className="spinner-progress">
+      <div className={`spinner-container spinner-container-${size}`}>
+        <ProgressSpinner
+          size={size}
+          maxProgress={max}
+          progress={progress}
+          spin={spin}
+          variant={variant}
+        />
+        <div className='progress-text'>
           {Math.floor(progress)}
           <span style={{ fontSize: "0.7rem" }}> %</span>
         </div>
-      </ProgressSpinner>
+      </div>
       <p />
 
       <Form>
         <Form.Row>
-          <Form.Group as={Col} sm="2" controlId="progress">
+          <Form.Group as={Col} lg="1" md='2' controlId="progress">
             <Form.Label>Progress</Form.Label>
             <Form.Control
               size="sm"
@@ -46,7 +45,7 @@ export default function App() {
               onChange={({ target: { value } }) => setProgress(Number(value))}
             />
           </Form.Group>
-          <Form.Group as={Col} sm="2" controlId="variant">
+          <Form.Group as={Col} lg="1" md='2' controlId="variant">
             <Form.Label>Variant</Form.Label>
             <Form.Control
               size="sm"
@@ -64,25 +63,7 @@ export default function App() {
               <option value="dark">Dark</option>
             </Form.Control>
           </Form.Group>
-          <Form.Group as={Col} sm="2" controlId="strokeWidth">
-            <Form.Label>Stroke width</Form.Label>
-            <Form.Control
-              size="sm"
-              type="number"
-              defaultValue={strokeWidth}
-              step={1}
-              min={1}
-              max={
-                // assumes 1rem === 16px
-                size === "sm" ? 8
-                : size === "md" ? 16
-                : size === "lg" ? 24
-                : 32 // assume 'xl'
-              }
-              onChange={({ target: { value } }) => setStrokeWidth(Number(value))}
-            />
-          </Form.Group>
-          <Form.Group as={Col} sm="3" controlId="size">
+          <Form.Group as={Col} lg='1' md='2' controlId="size">
             <Form.Label>Size</Form.Label>
             <Form.Control
               size="sm"

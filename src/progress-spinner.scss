@@ -2,16 +2,14 @@
   display: inline-block;
   position: relative;
   height: auto;
-
-  svg {
-    overflow: visible;
-  }
+  overflow: visible;
 
   circle {
     transition: 0.3s stroke-dashoffset;
-    transform-origin: center center;
+    transform-origin: 50% 50%;
     transform: rotate(-90deg);
     stroke: currentColor;
+    stroke-width: inherit;
     fill: none;
 
     &.spin {
@@ -23,10 +21,6 @@
       animation: spin 2s linear infinite normal forwards;
     }
 
-    &:not(.spin) {
-      transform: rotate(-90deg);
-    }
-
     &.paused {
       animation-play-state: paused;
     }
@@ -34,17 +28,25 @@
 }
 
 .progress-spinner-sm {
-  width: 1rem;
+  width: 1em;
+  stroke-width: 2px;
 }
 
 .progress-spinner-md {
-  width: 2rem;
+  width: 2em;
+  stroke-width: 4px;
 }
 
 .progress-spinner-lg {
-  width: 3rem;
+  width: 3em;
+  stroke-width: 6px;
 }
 
 .progress-spinner-xl {
-  width: 4rem;
+  width: 4em;
+  stroke-width: 8px;
+}
+
+.progress-spinner-thin {
+  stroke-width: 1px;
 }
